@@ -8,7 +8,7 @@
 
 VMID=400
 qm create $VMID \
-  --name plex \
+  --name blueiris \
   --sockets 1 \
   --cores 2 \
   --memory 4096 \
