@@ -1,10 +1,14 @@
-# proxmox-plex
+# proxmox-blueiris
+
+## Create the VM
 
 run the following
 
 ``` shell
 bash <(curl -s https://raw.githubusercontent.com/shepner/proxmox-blueiris/master/proxmox/create_vm.sh)
 ```
+
+## Install Windows
 
 Follow the installer steps until you reach the installation type selection where you need to select "Custom (advanced)"
 
@@ -14,65 +18,35 @@ Now click "Load driver" to install the VirtIO drivers for hard disk and the netw
 * Network: Browse to folder `NetKVM\w10\amd64` and install the driver
 * Memory Ballooning: Browse to folder `Balloon\w10\amd64` and install the driver 
 
-Choose the drive and continue the Windows installer steps.
+Choose the drive and continue the Windows installer steps:
 
-After Windows starts, install the "Qemu Guest Agent". The installer is located on the driver CD under `guest-agent\qemu-ga-x86_64.msi`
+* Turn off all the MS Spyware options
+* skip the Android sync
+* turn off the OneDrive backup
+* Skip 365 trial
+* Skip Cortina
+
+After Windows starts, 
+
+* Install the "Qemu Guest Agent". The installer is located on the driver CD under `guest-agent\qemu-ga-x86_64.msi`
+* Install `virtio-win-gt-x64.msi` found on the root of the CD
+
+Shutdown the VM
+
+Set the MAC address in the DHCP server
+
+Start the VM
+
+From the commandline, run `ipconfig /release` and `ipconfig /renew`.  Make sure the new IP appears.
+
+## Install VNC
+
+Download/install TightVNC using the default settings:  https://www.tightvnc.com
+
+Point VNC client at: vnc://blueiris.asyla.org
+
+## Install [BlueIris](https://blueirissoftware.com)
+
+Download/run the latest software: https://blueirissoftware.com/blueiris.exe
 
 
-
-
-
-
-
-
-provide a static IP address
-
-DNS: 10.0.0.5,208.67.222.222,208.67.220.220
-
-Do NOT setup disk as LVM group
-
-install OpenSSH
-
-## Fix the UID
-
-First set the permissions of the home dir:
-
-``` shell
-sudo chown -R 1001 /home/`id -un`
-```
-
-Then change the UID accodingly in the passwd files:
-
-``` shell
-sudo vipw
-```
-
-Finally, logout and back in again
-
-## Setup ssh keys
-
-Do this from the local workstation:
-
-``` shell
-DHOST=plex
-ssh-copy-id -i ~/.ssh/shepner_rsa.pub $DHOST
-
-scp ~/.ssh/shepner_rsa $DHOST:.ssh/shepner_rsa
-scp ~/.ssh/shepner_rsa.pub $DHOST:.ssh/shepner_rsa.pub
-scp ~/.ssh/config $DHOST:.ssh/config
-ssh $DHOST "chmod -R 700 ~/.ssh"
-```
-
-## Configure the system
-
-``` shell
-bash <(curl -s https://raw.githubusercontent.com/shepner/proxmox-plex/master/update-scripts.sh)
-
-~/update.sh
-
-~/scripts/setup/userConfig.sh
-~/scripts/setup/systemConfig.sh
-~/scripts/setup/nfs.sh
-~/scripts/setup/smb.sh
-~/scripts/setup/plex.sh
-```
