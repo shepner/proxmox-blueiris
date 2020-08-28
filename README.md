@@ -6,7 +6,24 @@ run the following
 bash <(curl -s https://raw.githubusercontent.com/shepner/proxmox-blueiris/master/proxmox/create_vm.sh)
 ```
 
-Install Windows
+Follow the installer steps until you reach the installation type selection where you need to select "Custom (advanced)"
+
+Now click "Load driver" to install the VirtIO drivers for hard disk and the network:
+
+* Hard disk: Browse to folder `vioscsi\w10\amd64` and install the driver
+* Network: Browse to folder `NetKVM\w10\amd64` and install the driver
+* Memory Ballooning: Browse to folder `Balloon\w10\amd64` and install the driver 
+
+Choose the drive and continue the Windows installer steps.
+
+After Windows starts, install the "Qemu Guest Agent". The installer is located on the driver CD under `guest-agent\qemu-ga-x86_64.msi`
+
+
+
+
+
+
+
 
 provide a static IP address
 
