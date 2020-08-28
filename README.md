@@ -39,6 +39,10 @@ Start the VM
 
 From the commandline, run `ipconfig /release` and `ipconfig /renew`.  Make sure the new IP appears.
 
+A display setting of 1280x800 is more tolerable
+
+The clipboard wont work for some (any) reason
+
 ## Install VNC
 
 Download/install TightVNC using the default settings:  https://www.tightvnc.com
@@ -48,5 +52,3 @@ Point VNC client at: vnc://blueiris.asyla.org
 ## Install [BlueIris](https://blueirissoftware.com)
 
 Download/run the latest software: https://blueirissoftware.com/blueiris.exe
-
-
