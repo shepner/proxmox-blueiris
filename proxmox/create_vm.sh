@@ -26,7 +26,8 @@ qm create $VMID \
   --net0 virtio,bridge=vmbr0,firewall=1 \
   --onboot 1 \
   --numa 0 \
-  --agent 1,fstrim_cloned_disks=1
+  --agent 1,fstrim_cloned_disks=1 \
+  --vga virtio,memory=16
 
 qm resize $VMID scsi0 256G # [resize disks](https://pve.proxmox.com/wiki/Resize_disks)
 
